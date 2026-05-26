@@ -1,0 +1,117 @@
+{
+  "skill_name": "spec-compliance-review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "测试都通过了，30/30 绿，准备把这个 feature 分支合到主干上",
+      "expected_output": "应触发本技能：用户即将合并分支，按工作流必须先做 spec 合规性审查",
+      "should_trigger": true,
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "帮我对照 spec 检查一下 ToolRegistry 的实现是否完整",
+      "expected_output": "应触发本技能：用户明确要求 review against spec",
+      "should_trigger": true,
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "验收一下 batch-2 的实现，看看有没有遗漏 spec 里要求的功能",
+      "expected_output": "应触发本技能：'验收' + 子任务 spec 对照",
+      "should_trigger": true,
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "verification-before-completion 显示测试通过、pnpm build 也成功了，下一步是什么？",
+      "expected_output": "应触发本技能：技术验证通过后按工作流进入 spec-compliance-review",
+      "should_trigger": true,
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "我开发了 3 天，中间切换过好几次上下文，想确认一下实现有没有偏离最初的设计文档",
+      "expected_output": "应触发本技能：长 session 后对完整性失去信心，是典型场景",
+      "should_trigger": true,
+      "files": []
+    },
+    {
+      "id": 6,
+      "prompt": "准备 commit 了，帮我确认代码是否忠实实现了 plan 里所有 Task 的承诺",
+      "expected_output": "应触发本技能：commit 前的 spec 合规审查",
+      "should_trigger": true,
+      "files": []
+    },
+    {
+      "id": 7,
+      "prompt": "对照 docs/superpowers/2026-05-09-agent-core/batch-2/ 下的 review-checklist.md 把当前实现审一遍",
+      "expected_output": "应触发本技能：用户明确指定了 checklist 路径，要求审查",
+      "should_trigger": true,
+      "files": []
+    },
+    {
+      "id": 8,
+      "prompt": "review 一下这个 PR 的代码，看看命名规范、异常处理、TypeScript 类型是否合理",
+      "expected_output": "不应触发本技能：用户要求的是代码质量审查（命名/异常/类型），属于 requesting-code-review",
+      "should_trigger": false,
+      "files": []
+    },
+    {
+      "id": 9,
+      "prompt": "帮我写一个 review-checklist.md，需要覆盖 spec 里的所有功能点",
+      "expected_output": "不应触发本技能：用户要求生成清单，属于 writing-review-checklist",
+      "should_trigger": false,
+      "files": []
+    },
+    {
+      "id": 10,
+      "prompt": "测试不通过，有 3 个单元测试失败，帮我 debug",
+      "expected_output": "不应触发本技能：技术验证未通过，属于 systematic-debugging",
+      "should_trigger": false,
+      "files": []
+    },
+    {
+      "id": 11,
+      "prompt": "准备一份 spec 文档，描述新的 ToolRegistry 模块需要具备哪些能力",
+      "expected_output": "不应触发本技能：上游阶段，属于 brainstorming",
+      "should_trigger": false,
+      "files": []
+    },
+    {
+      "id": 12,
+      "prompt": "帮我 review 一下这份 spec 文档是否合理、有没有边界歧义",
+      "expected_output": "不应触发本技能：review 的对象是 spec 本身（上游），不是实现的合规性",
+      "should_trigger": false,
+      "files": []
+    },
+    {
+      "id": 13,
+      "prompt": "按 spec 里要求实现 register 方法",
+      "expected_output": "不应触发本技能：是实现阶段（executing-plans），不是审查",
+      "should_trigger": false,
+      "files": []
+    },
+    {
+      "id": 14,
+      "prompt": "我们团队下周要做一次 sprint review，帮我准备议程",
+      "expected_output": "不应触发本技能：'review' 是 scrum review（敏捷评审），与 spec 合规性无关",
+      "should_trigger": false,
+      "files": []
+    },
+    {
+      "id": 15,
+      "prompt": "检查我的 AWS 权限配置是否符合安全基线",
+      "expected_output": "不应触发本技能：是合规审计（安全/基础设施），不是软件 spec 合规",
+      "should_trigger": false,
+      "files": []
+    },
+    {
+      "id": 16,
+      "prompt": "帮我生成 PR 的 summary",
+      "expected_output": "不应触发本技能：纯文案任务",
+      "should_trigger": false,
+      "files": []
+    }
+  ]
+}
