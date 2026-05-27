@@ -39,6 +39,16 @@ digraph when_to_use {
 - Two-stage review after each task: spec compliance first, then code quality
 - Faster iteration (no human-in-loop between tasks)
 
+## Scope of Per-Task Review
+
+The per-task spec review in this skill is NOT the final feature acceptance review.
+
+Per-task review checks:
+- whether the current task matches its task text
+- whether the implementer underbuilt or overbuilt that task
+
+It does NOT replace `superpowers:spec-compliance-review`, which performs a full feature-level acceptance pass against `review-checklist.md` after implementation is technically verified.
+
 ## The Process
 
 ```dot
@@ -130,7 +140,7 @@ Implementer subagents report one of four statuses. Handle each appropriately:
 ```
 You: I'm using Subagent-Driven Development to execute this plan.
 
-[Read plan file once: docs/superpowers/plans/feature-plan.md]
+[Read plan file once: docs/superpowers/2026-01-15-feature-name/plan.md]
 [Extract all 5 tasks with full text and context]
 [Create TodoWrite with all tasks]
 

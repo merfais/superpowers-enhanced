@@ -3,113 +3,113 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "我刚把 plan.md 写完了，已经保存到 docs/superpowers/2026-05-09-tool-registry/plan.md，里面定义了 ToolRegistry 类和 5 个 Task。可以开始写代码了吗？",
-      "expected_output": "应触发本技能：识别 plan.md 已就绪、用户想跳过 checklist 直接进入实现，必须先拦截生成 review-checklist.md",
+      "prompt": "I just finished `plan.md` and saved it to `docs/superpowers/2026-05-09-tool-registry/plan.md`. It defines the `ToolRegistry` class and 5 tasks. Can we start coding now?",
+      "expected_output": "Should trigger this skill: detect that `plan.md` is ready and the user wants to skip the checklist and jump straight into implementation, so it must intercept and generate `review-checklist.md` first.",
       "should_trigger": true,
       "files": []
     },
     {
       "id": 2,
-      "prompt": "帮我写个审查清单吧，需要覆盖 spec 里的 5 个功能点和 plan Task 1-3 的接口定义",
-      "expected_output": "应触发本技能：用户显式要求生成审查清单",
+      "prompt": "Please write a review checklist that covers the 5 feature points in the spec and the interface definitions from plan Tasks 1-3.",
+      "expected_output": "Should trigger this skill: the user explicitly asks to generate the review checklist.",
       "should_trigger": true,
       "files": []
     },
     {
       "id": 3,
-      "prompt": "spec 和 plan 都写好了，下一步该做什么？我想准备验收标准。",
-      "expected_output": "应触发本技能：用户提到'准备验收标准'是 description 中的关键词",
+      "prompt": "The spec and plan are both finished. What is the next step? I want to prepare the acceptance criteria.",
+      "expected_output": "Should trigger this skill: the user mentions 'prepare acceptance criteria', which is a trigger phrase in the description.",
       "should_trigger": true,
       "files": []
     },
     {
       "id": 4,
-      "prompt": "刚跑完 brainstorming 和 writing-plans，现在 spec.md 和 plan.md 都在 docs/superpowers/2026-05-09-context-engine/ 下，开干吧",
-      "expected_output": "应触发本技能：'开干吧'是隐含跳过 checklist 进入实现的拦截关键词",
+      "prompt": "I just finished `brainstorming` and `writing-plans`. `spec.md` and `plan.md` are both under `docs/superpowers/2026-05-09-context-engine/`. Let's begin implementation.",
+      "expected_output": "Should trigger this skill: 'let's begin implementation' implies skipping the checklist and must be intercepted.",
       "should_trigger": true,
       "files": []
     },
     {
       "id": 5,
-      "prompt": "用 subagent-driven-development 执行这个 plan",
-      "expected_output": "应触发本技能：当 checklist 不存在时，'用 subagent-driven-development' 是拦截触发关键词",
+      "prompt": "Use `subagent-driven-development` to execute this plan.",
+      "expected_output": "Should trigger this skill: when the checklist does not exist, 'use subagent-driven-development' is an interception trigger.",
       "should_trigger": true,
       "files": []
     },
     {
       "id": 6,
-      "prompt": "spec-compliance-review 找不到对应的 review-checklist.md，需要先生成",
-      "expected_output": "应触发本技能：作为下游技能的前置依赖被调用",
+      "prompt": "`spec-compliance-review` cannot find the corresponding `review-checklist.md`; generate it first.",
+      "expected_output": "Should trigger this skill: it is invoked as a prerequisite by the downstream skill.",
       "should_trigger": true,
       "files": []
     },
     {
       "id": 7,
-      "prompt": "我们刚把 batch-2 的 plan.md 放在 docs/superpowers/2026-05-09-agent-core/batch-2/ 下了，准备好下一步流程",
-      "expected_output": "应触发本技能：子任务的 plan 已就绪，下一步应是生成对应子目录的 review-checklist.md",
+      "prompt": "We just placed the batch-2 plan file under `docs/superpowers/2026-05-09-agent-core/`. It is ready for the next workflow step.",
+      "expected_output": "Should trigger this skill: the scoped sub-task plan is ready, so the next step is generating the corresponding scoped `review-checklist.md` in the same feature directory.",
       "should_trigger": true,
       "files": []
     },
     {
       "id": 8,
-      "prompt": "帮我 review 一下这段代码，看看命名和异常处理是否合理：function fetch(u){ return fetch(u).then(r=>r.json()) }",
-      "expected_output": "不应触发本技能：用户要求的是 code review（代码质量/命名/可读性），属于 requesting-code-review",
+      "prompt": "Please review this code and tell me whether the naming and error handling make sense: `function fetch(u){ return fetch(u).then(r=>r.json()) }`",
+      "expected_output": "Should NOT trigger this skill: the user is asking for a code review (code quality / naming / readability), which belongs to `requesting-code-review`.",
       "should_trigger": false,
       "files": []
     },
     {
       "id": 9,
-      "prompt": "对照 spec 检查一下我们的实现是否完整，appears to test failures in toolRegistry test file",
-      "expected_output": "不应触发本技能：用户要求的是 spec-compliance-review（审查实现是否符合 spec），不是生成清单",
+      "prompt": "Check whether our implementation is complete against the spec; there appear to be test failures in the ToolRegistry test file.",
+      "expected_output": "Should NOT trigger this skill: the user is asking for `spec-compliance-review` (checking whether the implementation matches the spec), not generating a checklist.",
       "should_trigger": false,
       "files": []
     },
     {
       "id": 10,
-      "prompt": "帮我写一个 PR 描述清单，列出本次 PR 涉及的变更点",
-      "expected_output": "不应触发本技能：'清单'语义近似但实际是 PR 描述，与验收清单无关",
+      "prompt": "Help me write a PR summary checklist that lists the changes included in this PR.",
+      "expected_output": "Should NOT trigger this skill: although it mentions a 'checklist', the actual request is for a PR summary, not an acceptance checklist.",
       "should_trigger": false,
       "files": []
     },
     {
       "id": 11,
-      "prompt": "帮我准备一份测试用例清单，覆盖 ToolRegistry 的所有边界情况",
-      "expected_output": "不应触发本技能：用户要写的是测试用例清单（写测试），不是验收审查清单",
+      "prompt": "Help me prepare a test-case checklist that covers all edge cases for ToolRegistry.",
+      "expected_output": "Should NOT trigger this skill: the user wants a test-case checklist (for writing tests), not an acceptance review checklist.",
       "should_trigger": false,
       "files": []
     },
     {
       "id": 12,
-      "prompt": "我的 spec 还在写中，能帮我列一下 PRD 该包含哪些章节吗？",
-      "expected_output": "不应触发本技能：spec 阶段尚未完成，应走 brainstorming",
+      "prompt": "My spec is still being drafted. Can you help list the sections a PRD should include?",
+      "expected_output": "Should NOT trigger this skill: the spec phase is not complete yet, so this should go through `brainstorming`.",
       "should_trigger": false,
       "files": []
     },
     {
       "id": 13,
-      "prompt": "我们做 SOC2 合规审查需要准备哪些清单？",
-      "expected_output": "不应触发本技能：'合规审查清单'听起来像，但是企业合规领域，与软件验收清单无关",
+      "prompt": "What checklists do we need to prepare for a SOC2 compliance review?",
+      "expected_output": "Should NOT trigger this skill: 'compliance checklist' sounds similar, but this is enterprise compliance, not a software acceptance checklist.",
       "should_trigger": false,
       "files": []
     },
     {
       "id": 14,
-      "prompt": "review-checklist.md 已经在 docs/superpowers/2026-05-09-tool-registry/ 下生成好了，现在执行 plan 里的 Task 1",
-      "expected_output": "不应触发本技能：用户已明确说明 checklist 已存在，应直接进入 executing-plans，无需再次拦截",
+      "prompt": "`review-checklist.md` has already been generated under `docs/superpowers/2026-05-09-tool-registry/`. Now execute Task 1 from the plan.",
+      "expected_output": "Should NOT trigger this skill: the user explicitly states the checklist already exists, so it should go directly to `executing-plans` without another interception.",
       "should_trigger": false,
       "files": []
     },
     {
       "id": 15,
-      "prompt": "把这个待办清单帮我整理成 markdown 表格",
-      "expected_output": "不应触发本技能：纯格式化任务，与验收审查无关",
+      "prompt": "Please turn this todo checklist into a markdown table.",
+      "expected_output": "Should NOT trigger this skill: this is a pure formatting task unrelated to acceptance review.",
       "should_trigger": false,
       "files": []
     },
     {
       "id": 16,
-      "prompt": "今天天气怎么样？",
-      "expected_output": "不应触发本技能：完全不相关",
+      "prompt": "How is the weather today?",
+      "expected_output": "Should NOT trigger this skill: completely unrelated.",
       "should_trigger": false,
       "files": []
     }

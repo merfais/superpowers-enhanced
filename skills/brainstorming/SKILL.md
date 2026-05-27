@@ -26,10 +26,11 @@ You MUST create a task for each of these items and complete them in order:
 3. **Ask clarifying questions** — one at a time, understand purpose/constraints/success criteria
 4. **Propose 2-3 approaches** — with trade-offs and your recommendation
 5. **Present design** — in sections scaled to their complexity, get user approval after each section
-6. **Write design doc** — save to `docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md` and commit
-7. **Spec self-review** — quick inline check for placeholders, contradictions, ambiguity, scope (see below)
-8. **User reviews written spec** — ask user to review the spec file before proceeding
-9. **Transition to implementation** — invoke writing-plans skill to create implementation plan
+6. **Enter isolated worktree** — invoke `superpowers:using-git-worktrees` before writing the first persisted workflow artifact
+7. **Write design doc** — save to `docs/superpowers/YYYY-MM-DD-<feature-name>/spec.md` and commit
+8. **Spec self-review** — quick inline check for placeholders, contradictions, ambiguity, scope (see below)
+9. **User reviews written spec** — ask user to review the spec file before proceeding
+10. **Transition to implementation planning** — invoke writing-plans skill to create implementation plan
 
 ## Process Flow
 
@@ -42,6 +43,7 @@ digraph brainstorming {
     "Propose 2-3 approaches" [shape=box];
     "Present design sections" [shape=box];
     "User approves design?" [shape=diamond];
+    "Invoke using-git-worktrees" [shape=box];
     "Write design doc" [shape=box];
     "Spec self-review\n(fix inline)" [shape=box];
     "User reviews spec?" [shape=diamond];
@@ -55,7 +57,8 @@ digraph brainstorming {
     "Propose 2-3 approaches" -> "Present design sections";
     "Present design sections" -> "User approves design?";
     "User approves design?" -> "Present design sections" [label="no, revise"];
-    "User approves design?" -> "Write design doc" [label="yes"];
+    "User approves design?" -> "Invoke using-git-worktrees" [label="yes"];
+    "Invoke using-git-worktrees" -> "Write design doc";
     "Write design doc" -> "Spec self-review\n(fix inline)";
     "Spec self-review\n(fix inline)" -> "User reviews spec?";
     "User reviews spec?" -> "Write design doc" [label="changes requested"];
@@ -63,7 +66,7 @@ digraph brainstorming {
 }
 ```
 
-**The terminal state is invoking writing-plans.** Do NOT invoke frontend-design, mcp-builder, or any other implementation skill. The ONLY skill you invoke after brainstorming is writing-plans.
+**Once the design is approved, the next skill is `using-git-worktrees`, then `writing-plans` after the spec is written and approved.** Do NOT invoke frontend-design, mcp-builder, or any implementation skill before the persisted workflow artifacts are in the isolated workspace.
 
 ## The Process
 
@@ -108,7 +111,9 @@ digraph brainstorming {
 
 **Documentation:**
 
-- Write the validated design (spec) to `docs/superpowers/specs/YYYY-MM-DD-<topic>-design.md`
+- Before writing the spec doc, invoke `superpowers:using-git-worktrees` so the first persisted workflow artifact is created in the isolated workspace.
+- Do NOT write `spec`, `plan`, or `review-checklist` in the main workspace and move them later. Those documents belong to the worktree from first write.
+- Write the validated design (spec) to `docs/superpowers/YYYY-MM-DD-<feature-name>/spec.md`
   - (User preferences for spec location override this default)
 - Use elements-of-style:writing-clearly-and-concisely skill if available
 - Commit the design document to git
@@ -132,6 +137,7 @@ Wait for the user's response. If they request changes, make them and re-run the 
 
 **Implementation:**
 
+- The spec, plan, checklist, and implementation should now all live in the isolated worktree.
 - Invoke the writing-plans skill to create a detailed implementation plan
 - Do NOT invoke any other skill. writing-plans is the next step.
 

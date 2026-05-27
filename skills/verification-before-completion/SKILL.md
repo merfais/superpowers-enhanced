@@ -130,6 +130,25 @@ From 24 failure memories:
 - Implications of success
 - ANY communication suggesting completion/correctness
 
+## Workflow Gate
+
+Passing tests or builds does NOT mean the work is complete.
+
+If the work was done under a spec/plan workflow, and fresh verification evidence shows the implementation is technically passing, the ONLY next step is `superpowers:spec-compliance-review`.
+
+Do NOT:
+- claim the feature is complete
+- move to merge / PR / finish workflow
+- invoke `superpowers:finishing-a-development-branch`
+
+until `superpowers:spec-compliance-review` has completed.
+
+Technical verification answers:
+- "Does it run and pass?"
+
+Spec compliance review answers:
+- "Did we actually build what was promised?"
+
 ## The Bottom Line
 
 **No shortcuts for verification.**

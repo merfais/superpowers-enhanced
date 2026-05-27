@@ -13,6 +13,17 @@ Guide completion of development work by presenting clear options and handling ch
 
 **Announce at start:** "I'm using the finishing-a-development-branch skill to complete this work."
 
+## Preconditions
+
+Before using this skill, confirm:
+
+1. Fresh technical verification has passed
+2. If the work came from a spec/plan workflow, `superpowers:spec-compliance-review` has passed
+
+If either condition is not satisfied, stop and return to the appropriate workflow step.
+
+This skill is for integration and branch disposition, not for deciding whether the implementation is complete.
+
 ## The Process
 
 ### Step 1: Verify Tests

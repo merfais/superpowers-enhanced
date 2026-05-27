@@ -4,6 +4,16 @@ Use this template when dispatching a spec compliance reviewer subagent.
 
 **Purpose:** Verify implementer built what was requested (nothing more, nothing less)
 
+## Scope Boundary
+
+This is a task-level review only.
+
+You are reviewing whether this task's implementation matches this task's requirements.
+You are NOT performing final feature acceptance.
+Do NOT infer broader feature completeness beyond the task you were given.
+
+Final feature acceptance happens later via `superpowers:spec-compliance-review` against `review-checklist.md`.
+
 ```
 Task tool (general-purpose):
   description: "Review spec compliance for Task N"

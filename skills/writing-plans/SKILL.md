@@ -13,9 +13,9 @@ Assume they are a skilled developer, but know almost nothing about our toolset o
 
 **Announce at start:** "I'm using the writing-plans skill to create the implementation plan."
 
-**Context:** If working in an isolated worktree, it should have been created via the `superpowers:using-git-worktrees` skill at execution time.
+**Context:** By the time this skill runs, persisted workflow artifacts should already be in an isolated worktree created via `superpowers:using-git-worktrees`.
 
-**Save plans to:** `docs/superpowers/plans/YYYY-MM-DD-<feature-name>.md`
+**Save plans to:** `docs/superpowers/YYYY-MM-DD-<feature-name>/plan.md`
 - (User preferences for plan location override this default)
 
 ## Scope Check
@@ -131,22 +131,16 @@ After writing the complete plan, look at the spec with fresh eyes and check the 
 
 If you find issues, fix them inline. No need to re-review — just fix and move on. If you find a spec requirement with no task, add the task.
 
-## Execution Handoff
+## Required Next Step
 
-After saving the plan, offer execution choice:
+After saving the plan, the ONLY next step is `superpowers:writing-review-checklist`.
 
-**"Plan complete and saved to `docs/superpowers/plans/<filename>.md`. Two execution options:**
+Do NOT offer implementation execution yet.
+Do NOT invoke `superpowers:executing-plans`.
+Do NOT invoke `superpowers:subagent-driven-development`.
 
-**1. Subagent-Driven (recommended)** - I dispatch a fresh subagent per task, review between tasks, fast iteration
+Why: implementation must not begin until `review-checklist.md` exists. The checklist is the acceptance ruler used later by `superpowers:spec-compliance-review`.
 
-**2. Inline Execution** - Execute tasks in this session using executing-plans, batch execution with checkpoints
+**Handoff message:**
 
-**Which approach?"**
-
-**If Subagent-Driven chosen:**
-- **REQUIRED SUB-SKILL:** Use superpowers:subagent-driven-development
-- Fresh subagent per task + two-stage review
-
-**If Inline Execution chosen:**
-- **REQUIRED SUB-SKILL:** Use superpowers:executing-plans
-- Batch execution with checkpoints for review
+"Plan complete and saved to `<path>`. I'm now using `superpowers:writing-review-checklist` to generate `review-checklist.md` before implementation begins."

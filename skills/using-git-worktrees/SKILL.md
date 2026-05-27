@@ -1,6 +1,6 @@
 ---
 name: using-git-worktrees
-description: Use when starting feature work that needs isolation from current workspace or before executing implementation plans - ensures an isolated workspace exists via native tools or git worktree fallback
+description: Use when the workflow is about to write its first persisted artifact and work needs isolation from the current workspace, or when continuing an approved plan in a separate workspace
 ---
 
 # Using Git Worktrees
@@ -8,6 +8,16 @@ description: Use when starting feature work that needs isolation from current wo
 ## Overview
 
 Ensure work happens in an isolated workspace. Prefer your platform's native worktree tools. Fall back to manual git worktrees only when no native tool is available.
+
+Use this skill before the first persisted workflow artifact is written:
+- `spec`
+- `plan`
+- `review-checklist`
+- implementation code
+
+Conversation-only brainstorming can happen before this skill. But once the workflow is about to write its first durable artifact, move into the isolated workspace first.
+
+Do NOT write workflow documents in the main workspace and move them later. That still pollutes the main workspace history.
 
 **Core principle:** Detect existing isolation first. Then use native tools. Then fall back to git. Never fight the harness.
 
@@ -148,7 +158,7 @@ npm test / cargo test / pytest / go test ./...
 ```
 Worktree ready at <full-path>
 Tests passing (<N> tests, 0 failures)
-Ready to implement <feature-name>
+Ready to continue the workflow for <feature-name>
 ```
 
 ## Quick Reference

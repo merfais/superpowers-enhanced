@@ -1,15 +1,15 @@
 ---
 name: spec-compliance-review
-description: "After technical verification (tests, build) passes and BEFORE merging the branch, MUST trigger this skill to perform spec/plan compliance review — verify the implementation faithfully delivers the functional, interface, behavioral, and constraint promises in spec & plan (NOT code style or readability — that belongs to requesting-code-review). If review-checklist.md does not exist, generate it first via writing-review-checklist. When the review fails, automatically enter a fix loop (hard cap: 3 rounds, then escalate to user). Trigger on user phrases like '审查' / '验收' / '对照 spec 检查' / '检查实现是否完整' / '检查是否符合设计' / 'review against spec' / 'compliance check' / 'verify implementation', or whenever a commit / PR / branch merge is imminent."
+description: "After technical verification (tests, build) passes and BEFORE merging the branch, MUST trigger this skill to perform spec/plan compliance review — verify the implementation faithfully delivers the functional, interface, behavioral, and constraint promises in spec & plan (NOT code style or readability — that belongs to requesting-code-review). If review-checklist.md does not exist, generate it first via writing-review-checklist. When the review fails, automatically enter a fix loop (hard cap: 3 rounds, then escalate to user). Trigger on user phrases like 'review this against the spec' / 'run acceptance review' / 'check implementation completeness against the spec' / 'verify implementation completeness' / 'check whether this matches the design' / 'review against spec' / 'compliance check' / 'verify implementation', or whenever a commit / PR / branch merge is imminent."
 ---
 
-# Spec Compliance Review — 独立审查者
+# Spec Compliance Review — Independent Reviewer
 
 ## Core Philosophy
 
 You are now the **reviewer**, not the implementer.
 
-实现者刚刚完成了一段高强度的编码工作，TA 对自己写的代码有天然的认知偏差——倾向于认为自己做的是对的、是完整的。这种偏差不是故意的，而是人（和 AI）在深度沉浸后的普遍心理现象。
+The implementer has just finished an intense coding session and naturally carries cognitive bias toward the code they wrote, tending to believe it is correct and complete. This bias is not malicious; it is a common human and AI pattern after deep immersion.
 
 Your job is to **break this bias**. Approach the codebase like a fresh hire who has only read the design docs. You do not care about the "trade-offs" and "compromises" made during implementation. You care only about: what the docs said, what the code does, and whether they match.
 
@@ -67,11 +67,11 @@ Review result
 
 ### Manual trigger
 
-- User says "审查一下" / "对照 spec 检查" / "验收" / "review against spec" / "检查实现是否完整"
+- User says "review this" / "check this against the spec" / "run acceptance review" / "review against spec" / "check whether the implementation is complete"
 - Implementation spans multiple days / sessions and you lack confidence in completeness
 - Before merging from a feature branch / before commit / before PR
 
-**Opening announcement (to user):** "我正在以独立审查者身份，对照审查清单检查实现完整性。"
+**Opening announcement (to user):** "I am reviewing the implementation as an independent reviewer against the review checklist."
 
 ## Review Workflow
 
@@ -81,7 +81,7 @@ Review result
 
 1. Current worktree / branch name → infer date / feature description, match a directory under `docs/superpowers/`
 2. Scan `docs/superpowers/` → infer the most relevant theme directory by recent modification time + branch keywords
-3. If steps 1–2 fail or are ambiguous → **ask the user directly** (Chinese): "请确认本次审查对应的设计文档路径（如 `docs/superpowers/YYYY-MM-DD-xxx/` 或其子目录 `batch-2/`）"
+3. If steps 1–2 fail or are ambiguous → **ask the user directly**: "Please confirm the design document path for this review (for example `docs/superpowers/YYYY-MM-DD-<feature-name>/`; if this is a scoped file, it may look like `batch-2-plan.md`)."
 
 Once the directory is determined, check whether `review-checklist.md` exists:
 - Exists → read it, proceed to Step 1
@@ -89,13 +89,13 @@ Once the directory is determined, check whether `review-checklist.md` exists:
 
 **Fallback when upstream artifacts are missing:**
 
-If even spec.md / plan.md is absent (the user did not follow the full superpowers workflow, e.g. raw vibe coding), **DO NOT** fabricate a spec yourself. Halt and ask the user (Chinese):
+If even `spec.md` / `plan.md` is absent (the user did not follow the full superpowers workflow, e.g. raw vibe coding), **DO NOT** fabricate a spec yourself. Halt and ask the user:
 
-> "当前未找到对应的 spec.md / plan.md。spec-compliance-review 需要明确的验收标尺才能执行。请选择：
-> A. 补写 spec 和 plan（触发 brainstorming + writing-plans）
-> B. 本次改为代码质量审查（触发 requesting-code-review）
-> C. 用户口述关键验收点，我据此临时生成 checklist 并审查
-> D. 跳过审查直接进入 finishing-a-development-branch"
+> "I could not find the corresponding `spec.md` / `plan.md`. `spec-compliance-review` requires a clear acceptance ruler before it can run. Please choose:
+> A. Write the missing spec and plan first (trigger `brainstorming` + `writing-plans`)
+> B. Switch this into a code quality review instead (trigger `requesting-code-review`)
+> C. Tell me the key acceptance points verbally and I will generate a temporary checklist from them for this review
+> D. Skip this review and go directly to `finishing-a-development-branch`"
 
 Follow the user's choice. **NEVER** default to "no spec → review by my own understanding".
 
@@ -149,45 +149,45 @@ For each item, mark status: ✅ pass / ❌ fail / ⚠️ partial / ❓ needs con
 ```
 ## Spec Compliance Review
 
-**审查目标：** [功能名称]
-**对照文档：** [review-checklist 路径]
-**审查轮次：** 第 N 轮
-**独立性：** subagent 审查 / 主 agent 自查（环境不支持 subagent）
-**裁定：** ✅ 通过 / ⚠️ 有条件通过 / ❌ 不通过
-**通过率：** X/Y 项通过 (Z%)
+**Review Target:** [Feature Name]
+**Reference Document:** [review-checklist path]
+**Review Round:** Round N
+**Independence Mode:** subagent review / main-agent self-review (runtime does not support subagents)
+**Verdict:** ✅ Pass / ⚠️ Conditional pass / ❌ Fail
+**Pass Rate:** X/Y items passed (Z%)
 
 ---
 
-### 逐项核查结果
+### Item-by-Item Results
 
-#### 功能完整性
+#### Functional Completeness
 
-| # | 审查项 | 状态 | 实现位置 | 备注 |
+| # | Review Item | Status | Implementation Location | Notes |
 |---|--------|------|---------|------|
 | F1 | xxx | ✅/❌/⚠️ | `file:line` | ... |
 
-#### 文件结构
-...（按清单类别逐项列出）
+#### File Structure
+... (list each checklist category item by item)
 
-### 问题清单
+### Issues
 
-#### 🔴 Critical（必须修复，阻塞合并）
-- **[问题ID]** [问题描述]
-  - 期望：[spec/plan 中的要求]
-  - 实际：[代码中的情况]
-  - 建议修复：[具体修复方向]
+#### 🔴 Critical (must fix, blocks merge)
+- **[Issue ID]** [Issue description]
+  - Expected: [Requirement from spec/plan]
+  - Actual: [What the code does]
+  - Recommended fix: [Concrete repair direction]
 
-#### 🟡 Important（建议修复）
-- **[问题ID]** [问题描述]
+#### 🟡 Important (recommended fix)
+- **[Issue ID]** [Issue description]
 
-#### 🔵 Minor（可选修复）
-- **[问题ID]** [问题描述]
+#### 🔵 Minor (optional fix)
+- **[Issue ID]** [Issue description]
 
-#### ❓ 待确认（需要用户决策）
-- **[问题ID]** [问题描述 + 为什么需要用户决策]
+#### ❓ Needs Confirmation (requires user decision)
+- **[Issue ID]** [Issue description + why user input is required]
 
-### 行动建议
-[下一步该做什么]
+### Recommended Next Action
+[What should happen next]
 ```
 
 ---
@@ -221,12 +221,10 @@ Not every failure requires a formal plan → execute cycle. Tier by problem scal
 
 Only when the tier decision says "fix-plan needed":
 
-- **Current review targets the main task in the main directory** (i.e., review-checklist.md is in main dir):
-  → Create a subdirectory to host it, e.g. `docs/superpowers/YYYY-MM-DD-xxx/fix-round-1/plan.md`
-  → Use the standard short name `plan.md` inside the subdirectory
-- **Current review targets a sub-task / sub-process** (i.e., review-checklist.md already in a subdirectory like `batch-2/`):
-  → Add a new file inside that subdirectory: `fix-round-N-plan.md`. **Do NOT** sink one level deeper.
-  → Example: `docs/superpowers/YYYY-MM-DD-xxx/batch-2/fix-round-1-plan.md`
+- **Current review targets the main task in the main directory** (i.e., `review-checklist.md` is the main checklist):
+  → Create a flat scoped file in the same feature directory, e.g. `docs/superpowers/YYYY-MM-DD-<feature-name>/fix-round-1-plan.md`
+- **Current review targets a sub-task / sub-process** (i.e., checklist file is already scoped like `batch-2-review-checklist.md`):
+  → Create a flat scoped file in the same feature directory, e.g. `docs/superpowers/YYYY-MM-DD-<feature-name>/batch-2-fix-round-1-plan.md`
 
 After generation, invoke `writing-plans` to flesh it out, then `executing-plans` to execute.
 
@@ -262,19 +260,19 @@ After generation, invoke `writing-plans` to flesh it out, then `executing-plans`
 └──────────────────────────────────────────────────────┘
 ```
 
-Over-cap script (Chinese, addressed to user):
+Over-cap script (addressed to the user):
 
-> "经过 3 轮自动修复，以下问题仍未解决：[问题清单]。已达到自动修复上限，需要您介入决策：
-> A. 调整 spec/plan 放宽要求
-> B. 您手动修复后重新触发审查
-> C. 标记为已知问题合并，后续处理
-> 相关修复记录：`fix-round-1/plan.md`、`fix-round-2-plan.md`、`fix-round-3-plan.md`"
+> "After 3 automated fix rounds, the following issues are still unresolved: [issue list]. The automatic fix limit has been reached and I need your decision:
+> A. Adjust the spec/plan to relax the requirement
+> B. You fix it manually and then trigger the review again
+> C. Merge while marking these as known issues to handle later
+> Related fix records: `fix-round-1-plan.md`, `fix-round-2-plan.md`, `fix-round-3-plan.md`"
 
 ## Review Principles
 
 ### Suspect everything
 
-不要因为代码"看起来合理"就认为它符合 spec。逐字对照。If spec says "supports 7 built-in tools", count them in code. If plan says "each tool gets at least one success case", go count the test files.
+Do not assume the code matches the spec just because it "looks reasonable". Compare it line by line. If the spec says "supports 7 built-in tools", count them in the code. If the plan says "each tool gets at least one success case", count the test files.
 
 ### Distinguish three issue kinds
 
@@ -304,13 +302,13 @@ Every conclusion MUST have **evidence** — which file, which line. "Feature X i
 ```
 1. brainstorming → spec.md
 2. writing-plans → plan.md
-3. writing-review-checklist → review-checklist.md (30 项审查点)
-4. executing-plans → 实现代码
-5. verification-before-completion → 测试通过 ✅
+3. writing-review-checklist → review-checklist.md (30 checklist items)
+4. executing-plans → implementation code
+5. verification-before-completion → tests pass ✅
 6. spec-compliance-review →
-   第 1 轮：26/30 通过，4 项未通过（2 Critical + 2 Important）
-   → 分级判定：跨文件，生成 fix-round-1/plan.md
-   → writing-plans → executing-plans → 修复 4 个问题
-   第 2 轮：30/30 通过 ✅
-7. finishing-a-development-branch → 合并
+   Round 1: 26/30 passed, 4 items failed (2 Critical + 2 Important)
+   → Tier decision: cross-file issue, generate `fix-round-1-plan.md`
+   → writing-plans → executing-plans → fix the 4 issues
+   Round 2: 30/30 passed ✅
+7. finishing-a-development-branch → merge
 ```
