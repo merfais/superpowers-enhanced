@@ -17,9 +17,11 @@ Load plan, review critically, execute all tasks, report when complete.
 
 ### Step 1: Load and Review Plan
 1. Read plan file
-2. Review critically - identify any questions or concerns about the plan
-3. If concerns: Raise them with your human partner before starting
-4. If no concerns: Create TodoWrite and proceed
+2. Confirm `review-checklist.md` already exists for this plan
+3. If checklist is missing: STOP execution and invoke `writing-review-checklist` first
+4. Review critically - identify any questions or concerns about the plan
+5. If concerns: Raise them with your human partner before starting
+6. If no concerns: Create TodoWrite and proceed
 
 ### Step 2: Execute Tasks
 
@@ -32,9 +34,15 @@ For each task:
 ### Step 3: Complete Development
 
 After all tasks complete and verified:
+1. Run `requesting-code-review` for the final implementation state
+2. Fix all Critical and Important review issues
+3. Run `verification-before-completion` to confirm tests pass and build is clean
+4. Run `spec-compliance-review` for final acceptance against spec / plan / review-checklist
+5. Only then proceed to branch completion
+
 - Announce: "I'm using the finishing-a-development-branch skill to complete this work."
 - **REQUIRED SUB-SKILL:** Use superpowers:finishing-a-development-branch
-- Follow that skill to verify tests, present options, execute choice
+- Follow that skill to verify upstream gates, present options, execute choice
 
 ## When to Stop and Ask for Help
 
@@ -67,4 +75,8 @@ After all tasks complete and verified:
 **Required workflow skills:**
 - **superpowers:using-git-worktrees** - Ensures isolated workspace (creates one or verifies existing)
 - **superpowers:writing-plans** - Creates the plan this skill executes
+- **superpowers:writing-review-checklist** - Mandatory pre-implementation acceptance gate
+- **superpowers:requesting-code-review** - Final code quality review before acceptance
+- **superpowers:verification-before-completion** - Technical verification before declaring completion
+- **superpowers:spec-compliance-review** - Mandatory final acceptance against spec/plan/checklist
 - **superpowers:finishing-a-development-branch** - Complete development after all tasks
