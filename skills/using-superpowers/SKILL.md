@@ -99,10 +99,12 @@ These thoughts mean STOP—you're rationalizing:
 When multiple skills could apply, use this order:
 
 1. **Process skills first** (brainstorming, debugging) - these determine HOW to approach the task
-2. **Implementation skills second** (frontend-design, mcp-builder) - these guide execution
+2. **Planning and acceptance-gate skills second** (`writing-plans`, `writing-review-checklist`, `spec-compliance-review`) - these define execution and acceptance boundaries
+3. **Implementation skills third** (frontend-design, mcp-builder) - these guide execution
+4. **Completion skills last** (`verification-before-completion`, `finishing-a-development-branch`) - these close out the work
 
-"Let's build X" → brainstorming first, then implementation skills.
-"Fix this bug" → debugging first, then domain-specific skills.
+"Let's build X" → brainstorming first, then writing-plans, then writing-review-checklist, then implementation.
+"Fix this bug" → debugging first, then domain-specific skills; if the bugfix is plan/spec-driven or changes expected behavior, include writing-review-checklist and spec-compliance-review before completion.
 
 ## Skill Types
 
@@ -111,6 +113,10 @@ When multiple skills could apply, use this order:
 **Flexible** (patterns): Adapt principles to context.
 
 The skill itself tells you which.
+
+## Mandatory Workflow Gates
+
+For plan-driven workflows, mandatory gates exist at `writing-review-checklist` (pre-implementation) and `spec-compliance-review` (pre-merge) — these skills will be invoked by the upstream skill's exit handoff. Do NOT skip them unless the work truly has no spec, no plan, and no externally meaningful acceptance boundary.
 
 ## User Instructions
 

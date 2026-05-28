@@ -31,6 +31,7 @@ You MUST create a task for each of these items and complete them in order:
 8. **Spec self-review** — quick inline check for placeholders, contradictions, ambiguity, scope (see below)
 9. **User reviews written spec** — ask user to review the spec file before proceeding
 10. **Transition to implementation planning** — invoke writing-plans skill to create implementation plan
+11. **Mandatory acceptance gate** — after writing-plans saves plan.md, immediately invoke writing-review-checklist before any implementation begins
 
 ## Process Flow
 
@@ -139,7 +140,8 @@ Wait for the user's response. If they request changes, make them and re-run the 
 
 - The spec, plan, checklist, and implementation should now all live in the isolated worktree.
 - Invoke the writing-plans skill to create a detailed implementation plan
-- Do NOT invoke any other skill. writing-plans is the next step.
+- Do NOT invoke any implementation skill directly. writing-plans is the next step.
+- Once writing-plans has saved plan.md, the mandatory next step is invoking writing-review-checklist to generate review-checklist.md before implementation starts.
 
 ## Key Principles
 

@@ -36,8 +36,8 @@ For each task:
 After all tasks complete and verified:
 1. Run `requesting-code-review` for the final implementation state
 2. Fix all Critical and Important review issues
-3. Run `verification-before-completion` to confirm tests pass and build is clean
-4. Run `spec-compliance-review` for final acceptance against spec / plan / review-checklist
+3. Run `spec-compliance-review` for final acceptance against spec / plan / review-checklist
+4. Run `verification-before-completion` if not already satisfied by the current session's evidence
 5. Only then proceed to branch completion
 
 - Announce: "I'm using the finishing-a-development-branch skill to complete this work."
@@ -77,6 +77,6 @@ After all tasks complete and verified:
 - **superpowers:writing-plans** - Creates the plan this skill executes
 - **superpowers:writing-review-checklist** - Mandatory pre-implementation acceptance gate
 - **superpowers:requesting-code-review** - Final code quality review before acceptance
-- **superpowers:verification-before-completion** - Technical verification before declaring completion
 - **superpowers:spec-compliance-review** - Mandatory final acceptance against spec/plan/checklist
+- **superpowers:verification-before-completion** - Technical verification before declaring completion
 - **superpowers:finishing-a-development-branch** - Complete development after all tasks

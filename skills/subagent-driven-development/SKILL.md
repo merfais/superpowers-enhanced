@@ -5,7 +5,7 @@ description: Use when executing implementation plans with independent tasks in t
 
 # Subagent-Driven Development
 
-Execute plan by dispatching fresh subagent per task, with task-level review loops and final acceptance gates. Per task, review order remains spec alignment first, then code quality; at the end of the full implementation, you MUST run final `requesting-code-review`, `verification-before-completion`, and `spec-compliance-review` before branch completion.
+Execute plan by dispatching fresh subagent per task, with task-level review loops and final acceptance gates. Per task, review order remains spec alignment first, then code quality; at the end of the full implementation, you MUST run final `requesting-code-review`, `spec-compliance-review`, and `verification-before-completion` before branch completion.
 
 **Why subagents:** You delegate tasks to specialized agents with isolated context. By precisely crafting their instructions and context, you ensure they stay focused and succeed at their task. They should never inherit your session's context or history — you construct exactly what they need. This also preserves your own context for coordination work.
 
@@ -73,8 +73,8 @@ digraph process {
     "Read plan + review-checklist, extract all tasks with full text, note context, create TodoWrite" [shape=box];
     "More tasks remain?" [shape=diamond];
     "Dispatch final code reviewer subagent for entire implementation" [shape=box];
-    "Run superpowers:verification-before-completion" [shape=box];
     "Run superpowers:spec-compliance-review for full implementation" [shape=box];
+    "Run superpowers:verification-before-completion" [shape=box];
     "Use superpowers:finishing-a-development-branch" [shape=box style=filled fillcolor=lightgreen];
 
     "Read plan + review-checklist, extract all tasks with full text, note context, create TodoWrite" -> "Dispatch implementer subagent (./implementer-prompt.md)";
@@ -94,9 +94,9 @@ digraph process {
     "Mark task complete in TodoWrite" -> "More tasks remain?";
     "More tasks remain?" -> "Dispatch implementer subagent (./implementer-prompt.md)" [label="yes"];
     "More tasks remain?" -> "Dispatch final code reviewer subagent for entire implementation" [label="no"];
-    "Dispatch final code reviewer subagent for entire implementation" -> "Run superpowers:verification-before-completion";
-    "Run superpowers:verification-before-completion" -> "Run superpowers:spec-compliance-review for full implementation";
-    "Run superpowers:spec-compliance-review for full implementation" -> "Use superpowers:finishing-a-development-branch";
+    "Dispatch final code reviewer subagent for entire implementation" -> "Run superpowers:spec-compliance-review for full implementation";
+    "Run superpowers:spec-compliance-review for full implementation" -> "Run superpowers:verification-before-completion";
+    "Run superpowers:verification-before-completion" -> "Use superpowers:finishing-a-development-branch";
 }
 ```
 
@@ -212,8 +212,8 @@ Code reviewer: ✅ Approved
 [After all tasks]
 [Dispatch final code-reviewer]
 Final reviewer: Code quality acceptable
-[Run verification-before-completion]
 [Run spec-compliance-review against the full implementation]
+[Run verification-before-completion]
 [Then invoke finishing-a-development-branch]
 
 Done!
@@ -289,8 +289,8 @@ Done!
 - **superpowers:writing-plans** - Creates the plan this skill executes
 - **superpowers:writing-review-checklist** - Mandatory pre-implementation acceptance gate
 - **superpowers:requesting-code-review** - Code review template for reviewer subagents and final code quality gate
-- **superpowers:verification-before-completion** - Technical verification before declaring completion
 - **superpowers:spec-compliance-review** - Mandatory final acceptance against spec/plan/checklist
+- **superpowers:verification-before-completion** - Technical verification before declaring completion
 - **superpowers:finishing-a-development-branch** - Complete development after all tasks
 
 **Subagents should use:**

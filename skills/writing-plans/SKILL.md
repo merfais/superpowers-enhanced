@@ -131,15 +131,19 @@ After writing the complete plan, look at the spec with fresh eyes and check the 
 
 If you find issues, fix them inline. No need to re-review — just fix and move on. If you find a spec requirement with no task, add the task.
 
-## Required Next Step
+## Mandatory Post-Plan Gate
 
-After saving the plan, the ONLY next step is `superpowers:writing-review-checklist`.
+After saving the plan, you MUST immediately invoke `writing-review-checklist` to generate `review-checklist.md`.
 
-Do NOT offer implementation execution yet.
-Do NOT invoke `superpowers:executing-plans`.
-Do NOT invoke `superpowers:subagent-driven-development`.
+This is a hard gate between planning and implementation.
 
-Why: implementation must not begin until `review-checklist.md` exists. The checklist is the acceptance ruler used later by `superpowers:spec-compliance-review`.
+**Never offer implementation choices before the checklist exists.**
+
+Required sequence:
+1. Save `plan.md`
+2. Invoke `writing-review-checklist`
+3. Confirm `review-checklist.md` exists
+4. Only then may implementation begin (execution routing is handled by `writing-review-checklist`'s own exit handoff)
 
 **Handoff message:**
 
