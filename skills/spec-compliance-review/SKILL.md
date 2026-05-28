@@ -1,6 +1,6 @@
 ---
 name: spec-compliance-review
-description: "After technical verification (tests, build) passes and BEFORE merging the branch, MUST trigger this skill to perform spec/plan compliance review — verify the implementation faithfully delivers the functional, interface, behavioral, and constraint promises in spec & plan (NOT code style or readability — that belongs to requesting-code-review). If review-checklist.md does not exist, generate it first via writing-review-checklist. When the review fails, automatically enter a fix loop (hard cap: 3 rounds, then escalate to user). Trigger on user phrases like 'review this against the spec' / 'run acceptance review' / 'check implementation completeness against the spec' / 'verify implementation completeness' / 'check whether this matches the design' / 'review against spec' / 'compliance check' / 'verify implementation', or whenever a commit / PR / branch merge is imminent."
+description: "Use when technical verification passes and you need to confirm the implementation matches spec/plan promises before merging. Trigger on 'review against spec' / 'compliance check' / 'verify implementation' / 'check implementation completeness' / 'run acceptance review', or whenever a commit / PR / branch merge is imminent."
 ---
 
 # Spec Compliance Review — Independent Reviewer

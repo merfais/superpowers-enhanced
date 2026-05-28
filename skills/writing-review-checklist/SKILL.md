@@ -1,6 +1,6 @@
 ---
 name: writing-review-checklist
-description: "MUST trigger immediately after writing-plans saves plan.md to generate review-checklist.md — this is the mandatory gate between 'plan is written' and 'start coding'. The checklist is the SOLE acceptance ruler for the downstream spec-compliance-review skill: it verifies whether the implementation faithfully delivers the functional/interface/behavioral/constraint promises in spec & plan (NOT code style or readability — that belongs to requesting-code-review). Trigger on user phrases like 'write the review checklist' / 'generate review checklist' / 'prepare acceptance criteria' / 'we can start implementing now' / 'we can start coding now' / 'let's begin implementation' / 'write the checklist' / 'prepare acceptance criteria', or whenever a fresh plan.md is detected. If the user attempts to skip the checklist and jump straight into implementation, this skill MUST intercept first."
+description: "Use when plan.md is freshly written and the acceptance checklist does not yet exist, or when user says 'write the review checklist' / 'generate review checklist' / 'prepare acceptance criteria' / 'we can start implementing now' / 'let's begin implementation'. Also intercepts attempts to skip the checklist and jump straight into implementation."
 ---
 
 # Writing Review Checklist — Generate the Acceptance Checklist
